@@ -1,0 +1,30 @@
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+
+You can return the answer in any order.
+
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        dict = {} #key: diff, value: index
+        for idx, num in enumerate(nums): #enumerate: 列舉
+            if dict.get(num, None) == None:
+                dict[target-num] = idx
+            else:
+                return[dict[num], idx]
+                
+   example [2,5,7,8] target=9
+  建立一個dictionary(diff), 利用列舉來幫num做一個index(idx)
+  如果取得的num不在dict裡面，將target - num當作目標key，index當作value存進dict裡面 [9-2=7, 0]
+  如果之後的num已經在dict裡面話，就找到ans ， 用dict[num] 找到他的index 所以答案是 [dict[num], idx]
+  
+  dict = {} #key: diff, value: index
+        for i in range(len(nums)): #range() 幫忙做idx (0,1,...), lens(計算數字長度)
+            if target - nums[i] not in dict:
+                dict[nums[i]] = i
+            else:
+                return[dict[target-nums[i]],i]
+  解法二
+         如目標-數列裡的數不在dict將nums[i]存入dict裡面
+         如之後的數字被target減去後符合dict裡面的數字的話即為正解
