@@ -1,0 +1,50 @@
+Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
+
+An input string is valid if:
+
+Open brackets must be closed by the same type of brackets.
+Open brackets must be closed in the correct order.
+Every close bracket has a corresponding open bracket of the same type.
+
+建立一個名為stack的列表(stack僅允許在表的一端進行插入和刪除)
+dictionary格式 { "Key(不重複)" : "Value(可重複)"}
+當字串 == Dict裡面的Key 檢查是否match dict 裡面的key and value
+stack[-1]最右邊輸入的s
+如果是的話 pop 消除
+不是的話回傳False
+當字串(s) != Dict裡面的 Key ， 將其加入Stack裡面
+回傳True如果stack裡面是空的不是就回傳False
+
+
+
+Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        lookup = {")": "(", "}": "{", "]": "["}
+        for parentheses in s:
+            if parentheses in lookup:
+                if stack and stack[-1] == lookup[parentheses]:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                stack.append(parentheses)
+        return True if not stack else False
+        
+        如果輸入一個串字串in S且此字串在dict裡面的話
+        stack append (加入stack裡面)
+        如果不在dict裡面的話
+        檢查len(stack)長度是否不為0 或 stack.pop(回傳)出來的Key, 是否match剛剛輸入的Parentheses( Value)
+        為0 或 後面 不等於的話回傳False
+        最後如果for迴圈跑完回傳len(stack)為0的話回傳0 跟 True 
+        
+Solution2:   
+    def isValid(self, s: str) -> bool:
+         stack = []
+        lookup = {"(": ")", "{": "}", "[": "]"}
+        for parentheses in s:
+            if parentheses in lookup:
+                stack.append(parentheses)
+            elif len(stack) == 0 or lookup[stack.pop()] != parentheses:       stack pop出來的符號(key) 的value != 輸入的parentheses
+                    return False
+        return len(stack) == 0 and True
