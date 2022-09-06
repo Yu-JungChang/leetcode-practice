@@ -8,6 +8,8 @@ Every close bracket has a corresponding open bracket of the same type.
 
 建立一個名為stack的列表(stack僅允許在表的一端進行插入和刪除)
 dictionary格式 { "Key(不重複)" : "Value(可重複)"}
+append(x) 在列表末端加入一個元素
+pop(x) 刪除列表中指定位置的元素，並回傳被刪除的元素
 當字串 == Dict裡面的Key 檢查是否match dict 裡面的key and value
 stack[-1]最右邊輸入的s
 如果是的話 pop 消除
