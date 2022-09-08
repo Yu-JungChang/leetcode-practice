@@ -1,0 +1,29 @@
+You are given the heads of two sorted linked lists list1 and list2.
+
+Merge the two lists in a one sorted list. The list should be made by splicing together the nodes of the first two lists.
+
+Return the head of the merged linked list.
+
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+        head = ListNode(0)         #先指定鍊表ListNode的頭為空的
+        move = head                #之後head會將數值回傳至move
+        if not list1: return list2 #如果l1為空回傳l2
+        if not list2: return list1 #如果l2為空回傳l1
+        while list1 and list2:
+            if list1.val <= list2.val: #當l1 的值<=l2的值
+                move.next = list1     #list 1 當下節點的值給到move的下一個節點node
+                list1 = list1.next    #list 1 list 1 進到下一個node
+            else:
+                move.next = list2     
+                list2 = list2.next
+            move = move.next          # 移動到下一個節點(move)
+        move.next = list1 if list1 else list2  #檢查l1,l2 還有沒有val.如果l1 或l2還有值的話,加入 move
+        return head.next
+    
+    
