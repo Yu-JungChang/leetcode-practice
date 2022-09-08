@@ -1,0 +1,19 @@
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        left = 0 #Buy
+        right = 1 #Sell
+        max_profit = 0  #先歸0
+        while right < len(prices):                        #當right(初始為1) < 數列(prices)的長度時
+            currentProfit = prices[right] - prices[left]  #目前獲利= 右邊價錢-左邊價錢
+            if prices[left] < prices[right]:              #如果右邊價錢較左邊價錢高
+               max_profit =max(currentProfit,max_profit)  #將此金額(currentProfit)與之前算出來的max_profit 比較取max值
+            else:
+               left = right                               #若左邊價格大於或等於右邊的話
+            right += 1                                    #左邊往右一格到原本右邊的位置, 右邊+1
+        return max_profit
