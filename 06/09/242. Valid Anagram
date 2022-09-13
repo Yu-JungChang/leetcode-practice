@@ -1,0 +1,41 @@
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+Example 1:
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+Example 2:
+Input: s = "rat", t = "car"
+Output: false
+
+class Solution: #兩個dict比較
+    def isAnagram(self, s: str, t: str) -> bool:
+        dic1, dic2 = {}, {}
+        for i in s: #for迴圈-i依序從s裡面取得元素
+            dic1[i] = dic1.get(i, 0) + 1 #如果取得的元素不在dict裡面，那它的值就是0 + 1, 有的話就是原來的值+1 ex. input a -> dict(a, 0->1)
+        for i in t: #for迴圈-i依序從t裡面取得元素
+            dic2[i] = dic2.get(i, 0) + 1 #如果取得的元素不在dict裡面，那它的值就是0 + 1, 有的話就是原來的值+1
+        return dic1 == dic2 比較兩個dict是否相等
+        
+class Solution 2: #一個dict
+    def isAnagram(self, s: str, t: str) -> bool:
+        dic = {}
+        for i in s: 
+            if i not in dic: # i不在dict裡面的話其value為1, 在dic裡面的話其value 1 -> 2
+                dic[i] = 1
+            else:
+                dic[i] += 1
+        
+        for j in t:
+            if j not in dic: #j不在dic裡面的話,回傳False,在的話其value-1
+                return False
+            else:
+                dic[j] -= 1
+        
+        for val in dic.values(): #從dict裡面依序提取各項元素檢查其值是否為0, 不為0 return False, 其他回傳True
+            if val != 0:
+                return False
+        
+        return True        
