@@ -22,7 +22,7 @@ Explanation: The starting pixel is already colored 0, so no changes are made to 
 class Solution:
     def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
         r, c = len(image), len(image[0]) #程式語言 的XY是反的 image()是row(Y), image(0)是column(X)
-        origin_color = image[sr][sc]     #基礎顏色參考
+        origin_color = image[sr][sc]     #基礎顏色參考點
         def dfs(i, j):                   #DFS深度優先搜尋(開始YX檢查)
             if i < 0 or i>=r or j < 0 or j >= c: #檢查是否超過或達到XY軸極限,達到極限的話回到上一個檢查點 
                 return
