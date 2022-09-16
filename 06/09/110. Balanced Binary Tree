@@ -1,0 +1,36 @@
+Given a binary tree, determine if it is height-balanced.
+
+For this problem, a height-balanced binary tree is defined as:
+
+a binary tree in which the left and right subtrees of every node differ in height by no more than 1.
+
+class Solution 1 :
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if not root: #如果不是root的話 一定是height balanced
+            return True
+        if abs(self.getDepth(root.left) - self.getDepth(root.right)) > 1: #如果左邊最深-右邊最深>1,沒有balanced
+            return False
+        return self.isBalanced(root.left) and self.isBalanced(root.right)
+    def getDepth(self, root: Optional[TreeNode]) -> int: #定義getDepth
+        if not root:
+            return 0 #不是root的話深度為0
+        return 1 + max(self.getDepth(root.left), self.getDepth(root.right))  #最根部為0所以要+1
+
+class Solution 2 : 
+
+ def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        return self.dfs(root) != -1 #最外層函數接收到返回-1，就知道不是平衡樹了
+    def dfs(self, root: TreeNode) -> int:
+        if not root:
+            return True
+        left_depth = self.dfs(root.left)  #如果節點值為為-1，代表該節點已经不為平衡樹，就一直向上返回-1
+        if left_depth == -1:
+            return -1
+        right_depth = self.dfs(root.right)
+        if right_depth == -1:
+            return -1
+        if abs(left_depth - right_depth) <= 1:
+            return 1 + max(left_depth, right_depth) #每次計算節點深度時同時計算是否平衡，是的話就返回深度給上一層，否則返回-1
+        else:
+            return -1
+    
